@@ -40,6 +40,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
+    //call next window
     public void selection(String level)
     {
         Intent intention = new Intent(this, SelectGrilleLVL.class);
