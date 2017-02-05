@@ -41,7 +41,7 @@ class DrawView extends View {
         {
             //Draw ROW
             canvas.drawRect(new Rect(side+i*side, side ,side+i*side +10, GRID_HEIGHT), paint);
-            //            DRAW LINE
+//            DRAW LINE
             canvas.drawRect(new Rect(side, side+i*side-10 , GRID_WIDTH-side , side+i*side),paint);
 
         }
