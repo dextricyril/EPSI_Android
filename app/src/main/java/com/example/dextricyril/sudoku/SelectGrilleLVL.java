@@ -17,6 +17,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.TextView;
 import android.widget.TwoLineListItem;
 
+import java.io.File;
 import java.util.ArrayList;
 
 
@@ -24,88 +25,72 @@ import java.util.ArrayList;
 //TODO create a treatemnt to create all vGrid
 public class SelectGrilleLVL extends AppCompatActivity implements View.OnClickListener{
     Context context =this;
-    @Override
 
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_select_grille_lvl1);
         final ListView list = (ListView) findViewById(R.id.liste);
-     //   list.setClickable(true);
         String s = getIntent().getStringExtra("selectedLevel");
         System.out.println(s +" debug");
         String[] values={"No Level Found"};
+        MyAdapter adapterlist;
         switch (s) {
             case "LEVEL1":
-                values = new String[]{"E1", "E2", "E3"};
+                adapterlist = new MyAdapter(this,vGridGenerator(1));
                 break;
             case "LEVEL2":
-                values = new String[]{"Polom", "Test", "E3"};
+                adapterlist = new MyAdapter(this,vGridGenerator(2));
                 break;
+            default: adapterlist = new MyAdapter(this,vGridGenerator(1));
         }
-        ArrayList <vGrid> TOAST = new ArrayList<vGrid>();
-        vGrid testGrid = new vGrid(2);
-        TOAST.add(testGrid);
-        vGrid testGrid2 = new vGrid(52);
-        TOAST.add(testGrid);
-        TOAST.add(testGrid2);
-        MyAdapter polom = new MyAdapter(this,TOAST);
 
-        ArrayAdapter< String> adapter = new ArrayAdapter< String>
-                (this, android.R.layout.simple_list_item_1,android.R.id.text1,values);
-
-        list.setAdapter(polom);
+        list.setAdapter(adapterlist);
         list.setClickable(true);
-/*
+
         list.setOnItemClickListener(new OnItemClickListener() {
 
             public void onItemClick(AdapterView <?> parentAdapter, View view, int position,
                                     long id) {
                 goToGrid();}
         });
-            /*
-            @Override//TODO set up popup
-            public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
-
-                Object o = list.getItemAtPosition(position);
-                new AlertDialog.Builder(context)
-                        .setView(R.layout.popup)
-                        .setTitle("")
-                        .setMessage("Are you sure you want to delete this entry?")
-                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                                // continue with delete
-                            }
-                        })
-                        .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                                // do nothing
-                            }
-                        })
-                        .setIcon(android.R.drawable.ic_dialog_alert)
-                        .show();
-            }});*/
     }
 
+
+    public void goToGrid()
+    {
+        Intent intention = new Intent(this, SudokuGrid.class);
+        startActivity(intention);
+    }
+
+    public  ArrayList <vGrid> vGridGenerator(int difficulty)
+    {
+        ArrayList<vGrid> listGrid=new ArrayList<vGrid>();
+        for (int i = 0; i<80;i++)
+        {
+            listGrid.add(new vGrid(i,difficulty,(int)(Math.random()*100)));
+        }
+        return listGrid;
+    }
 
     @Override
     public void onClick(View v) {
 
     }
+}
+class vGrid
+{
+    protected int done;
+    protected int level;
+    protected int num;
 
-    public void goToGrid()
-    {
-        Intent intention = new Intent(this, SudokuGrid.class);
-//        intention.putExtra("selectedLevel",level); send difficulty and level
-        startActivity(intention);
-    }
-
-    public void vGridGenerator(int difficulty)
-    {
-
+    public vGrid(int num,int level,int done){
+        this.num=num;
+        this.level=level;
+        this.done=done;
     }
 }
-
 
 class MyAdapter extends BaseAdapter {
     private Context context;
