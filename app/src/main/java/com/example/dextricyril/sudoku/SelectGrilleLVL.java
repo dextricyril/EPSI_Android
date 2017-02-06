@@ -34,7 +34,6 @@ public class SelectGrilleLVL extends AppCompatActivity implements View.OnClickLi
         final ListView list = (ListView) findViewById(R.id.liste);
         String s = getIntent().getStringExtra("selectedLevel");
         System.out.println(s +" debug");
-        String[] values={"No Level Found"};
         MyAdapter adapterlist;
         switch (s) {
             case "LEVEL1":
