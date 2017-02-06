@@ -46,14 +46,17 @@ public class SelectGrilleLVL extends AppCompatActivity implements View.OnClickLi
         ArrayList <vGrid> TOAST = new ArrayList<vGrid>();
         vGrid testGrid = new vGrid(2);
         TOAST.add(testGrid);
+        vGrid testGrid2 = new vGrid(52);
+        TOAST.add(testGrid);
+        TOAST.add(testGrid2);
         MyAdapter polom = new MyAdapter(this,TOAST);
 
         ArrayAdapter< String> adapter = new ArrayAdapter< String>
                 (this, android.R.layout.simple_list_item_1,android.R.id.text1,values);
-/*
-        list.setAdapter(adapter);
-        list.setClickable(true);
 
+        list.setAdapter(polom);
+        list.setClickable(true);
+/*
         list.setOnItemClickListener(new OnItemClickListener() {
 
             public void onItemClick(AdapterView <?> parentAdapter, View view, int position,
@@ -93,8 +96,13 @@ public class SelectGrilleLVL extends AppCompatActivity implements View.OnClickLi
     public void goToGrid()
     {
         Intent intention = new Intent(this, SudokuGrid.class);
-//        intention.putExtra("selectedLevel",level);
+//        intention.putExtra("selectedLevel",level); send difficulty and level
         startActivity(intention);
+    }
+
+    public void vGridGenerator(int difficulty)
+    {
+
     }
 }
 
@@ -143,8 +151,8 @@ class MyAdapter extends BaseAdapter {
             text2.setTextColor(Color.RED);
         else
             text2.setTextColor(Color.GREEN);
-        Typeface typeface = Typeface.createFromAsset(context.getAssets(), "fonts/Munro.ttf");
-        text2.setTypeface(typeface);
+       Typeface typeface = Typeface.createFromAsset(context.getAssets(), "fonts/Munro.ttf");
+       text2.setTypeface(typeface);
         return twoLineListItem;
     }
 
